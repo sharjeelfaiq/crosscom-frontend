@@ -44,7 +44,7 @@ const Signin = () => {
     
     try {
       if (email && password) {
-        let result = await fetch("http://localhost:8080/signin", {
+        let result = await fetch("/signin", {
           method: "post",
           body: JSON.stringify({ email, password }),
           headers: {
@@ -53,7 +53,6 @@ const Signin = () => {
         });
 
         result = await result.json();
-        console.log(result)
         if (result.name) {
           localStorage.setItem("user", JSON.stringify(result));
         } else if (result.message === "No user found") {
