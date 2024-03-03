@@ -68,7 +68,7 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let result = await fetch("http://localhost:5000/register", {
+            let result = await fetch("http://localhost:8080/register", {
               method: "post",
               body: JSON.stringify({ name, email, password }),
               headers: {

@@ -31,7 +31,7 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/get-products");
+      const res = await fetch("http://localhost:8080/get-products");
       const data = await res.json();
 
       let userData = localStorage.getItem("user");
@@ -54,7 +54,7 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`http://localhost:5000/delete-product/${pid}`, {
+      let res = await fetch(`http://localhost:8080/delete-product/${pid}`, {
         method: "delete",
       });
       res = await res.json();
@@ -72,7 +72,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `http://localhost:5000/delete-all-products/${uid}`,
+        `http://localhost:8080/delete-all-products/${uid}`,
         {
           method: "delete",
         }

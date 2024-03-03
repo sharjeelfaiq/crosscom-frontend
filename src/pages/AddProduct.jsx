@@ -53,7 +53,7 @@ const AddProduct = () => {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
 
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch("http://localhost:5000/add-product", {
+        await fetch("http://localhost:8080/add-product", {
           method: "post",
           body: JSON.stringify({
             userId,
