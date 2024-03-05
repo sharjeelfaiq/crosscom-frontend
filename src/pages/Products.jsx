@@ -31,7 +31,7 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/get-products");
+      const res = await fetch("http://localhost:8080/get-products");
       const data = await res.json();
 
       let userData = localStorage.getItem("user");
@@ -39,7 +39,7 @@ const Products = () => {
 
       let productsArr = [];
 
-      if (data && userData) {
+      if (data && userData && data.message !== "No product found") {
         data.forEach((product) => {
           if (product.userId === userData._id) {
             productsArr.push(product);
@@ -54,15 +54,16 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`http://localhost:5000/delete-product/${pid}`, {
+      let res = await fetch(`http://localhost:8080/delete-product/${pid}`, {
         method: "delete",
       });
       res = await res.json();
       if (res) {
         setProductDeletedNoti(true);
         setTimeout(() => setProductDeletedNoti(false), 5000);
-
-        getProducts();
+        setProducts((prevProducts) =>
+          prevProducts.filter((p) => p._id !== pid)
+        );
       }
     } catch (error) {
       console.error("Error in Product.jsx;handleDeleteProduct", error);
@@ -72,7 +73,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `http://localhost:5000/delete-all-products/${uid}`,
+        `http://localhost:8080/delete-all-products/${uid}`,
         {
           method: "delete",
         }
@@ -112,30 +113,49 @@ const Products = () => {
           <IoMdAddCircleOutline title="Add product" size={20} />
         </Link>
       )}
-      <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-bold">Product(s)</h1>
+      <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-bold">
+        Product(s)
+      </h1>
       {products && products.length > 0 ? (
         <>
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
             <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                  <th scope="col" className="p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
+                  <th
+                    scope="col"
+                    className="p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  >
                     SN
                   </th>
-                  <th scope="col" className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
+                  <th
+                    scope="col"
+                    className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  >
                     Name
                   </th>
-                  <th scope="col" className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
+                  <th
+                    scope="col"
+                    className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  >
                     Price
                   </th>
-                  <th scope="col" className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
+                  <th
+                    scope="col"
+                    className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  >
                     Company
                   </th>
-                  <th scope="col" className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
+                  <th
+                    scope="col"
+                    className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  >
                     Category
                   </th>
-                  <th scope="col" className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg">
-                  </th>
+                  <th
+                    scope="col"
+                    className=" p-1 md:px-6 md:py-3 lg:px-6 lg:py-3 xl:px-6 xl:py-3 2xl:px-6 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+                  ></th>
                 </tr>
               </thead>
               <tbody>
@@ -191,7 +211,7 @@ const Products = () => {
                           size={20}
                           color="red"
                           title="Delete Product"
-                          />
+                        />
                       </td>
                     </tr>
                   ))}
