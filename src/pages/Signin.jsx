@@ -53,7 +53,6 @@ const Signin = () => {
         });
 
         result = await result.json();
-        console.log(result)
         if (result.name) {
           localStorage.setItem("user", JSON.stringify(result));
         } else if (result.message === "No user found") {
@@ -90,7 +89,7 @@ const Signin = () => {
       )}
       {noUserFoundNoti && (
         <Alert
-          message="No User Found."
+          message="User not found."
           type="error"
           className="absolute top-5 right-0 text-right font-medium text-lg"
           showIcon
