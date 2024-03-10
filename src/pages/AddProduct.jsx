@@ -113,19 +113,19 @@ const AddProduct = () => {
           placeholder="Enter Product Name"
           value={productName}
           onChange={(e) => handleChange("product-name", e)}
-          className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
-            fillFieldsNoti && "border-b-red-300"
-          } text-lg`}
+          className={`${
+            fillFieldsNoti === true && "border-b-2 border-b-red-300"
+          }outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1  text-lg`}
           autoFocus
           required
         />
         <input
-          type="text"
+          type="number"
           placeholder="Enter Product Price"
           value={productPrice}
           onChange={(e) => handleChange("product-price", e)}
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
-            fillFieldsNoti && "border-b-red-300"
+            fillFieldsNoti === true && "border-b-2 border-b-red-300"
           } text-lg`}
           required
         />
@@ -135,7 +135,7 @@ const AddProduct = () => {
           value={productCategory}
           onChange={(e) => handleChange("product-category", e)}
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
-            fillFieldsNoti && "border-b-red-300"
+            fillFieldsNoti === true && "border-b-2 border-b-red-300"
           } text-lg`}
           required
         />
@@ -145,7 +145,7 @@ const AddProduct = () => {
           value={productCompany}
           onChange={(e) => handleChange("product-company", e)}
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
-            fillFieldsNoti && "border-b-red-300"
+            fillFieldsNoti === true && "border-b-2 border-b-red-300"
           } text-lg`}
           required
         />

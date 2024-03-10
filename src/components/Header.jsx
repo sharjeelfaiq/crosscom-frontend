@@ -30,23 +30,16 @@ const Header = () => {
       <nav className="px-5">
         <ul className="flex items-center gap-5">
           {user ? (
-            <>
-              <li className="hidden md:block text-white focus:ring-4 focus:ring-gray-300 font-medium text-lg rounded-lg focus:outline-none">
-                <Link to="/profile">{userName}</Link>
-              </li>
-              <li
-                className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none"
-                onClick={logout}
-              >
-                <Link to="/signup">Logout</Link>
-              </li>
-            </>
+            <li
+              className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none"
+              onClick={logout}
+            >
+              <Link to="/signup">Logout</Link>
+            </li>
           ) : (
-            <>
-              <li className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none">
-                <Link to="/signin">Sign in</Link>
-              </li>
-            </>
+            <li className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none">
+              <Link to="/signin">Sign in</Link>
+            </li>
           )}
         </ul>
       </nav>

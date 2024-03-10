@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import Products from "./pages/Products";
 import AddProduct from "./pages/AddProduct";
 import UpdateProduct from "./pages/UpdateProduct";
-import Profile from "./pages/Profile";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
       {
         path: "/update/:pid",
         element: <UpdateProduct />,
-      },
-      {
-        path: "/profile",
-        element: <Profile />,
       },
       {
         path: "/signup",

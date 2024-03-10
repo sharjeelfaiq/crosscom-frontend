@@ -6,9 +6,11 @@ import { FaEdit } from "react-icons/fa";
 import { Alert } from "antd";
 
 const Products = () => {
+  const [user, setUser] = useState(null);
   const [products, setProducts] = useState(null);
   const [productDeletedNoti, setProductDeletedNoti] = useState(false);
   const [productsDeletedNoti, setProductsDeletedNoti] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,10 +18,11 @@ const Products = () => {
     try {
       const user = localStorage.getItem("user");
       !user && navigate("/signup");
+      setUser(JSON.parse(user).name);
     } catch (error) {
       console.error("Error in Products.jsx; 1st useEffect() hook", error);
     }
-  });
+  }, [navigate, user]);
 
   useEffect(() => {
     try {
@@ -27,7 +30,23 @@ const Products = () => {
     } catch (error) {
       console.error("Error in Products.jsx; 2nd useEffect() hook", error);
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
+        const searchData = async () => {
+          let res = await fetch(`http://localhost:8080/search/${searchKey}`);
+          res = await res.json();
+          res.result !== "No Product Found" && setProducts(res);
+        };
+
+        searchData();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [searchKey]);
 
   const getProducts = async () => {
     try {
@@ -89,8 +108,17 @@ const Products = () => {
     }
   };
 
+  const handleSearchKeyChange = (e) => {
+    if (e.target.value.length > 0) {
+      setSearchKey(e.target.value);
+    } else {
+      setSearchKey("");
+      getProducts();
+    }
+  };
+
   return (
-    <div className="h-auto flex flex-col items-center gap-6 xl:gap-10 2xl:gap-10 mx-3 md:mx-14 lg:mx-20 xl:mx-20 2xl:mx-20 pt-6 md:pt-8 lg:pt-8 xl:pt-10 2xl:pt-10 pb-24 relative">
+    <div className="relative h-auto flex flex-col items-center gap-6 xl:gap-10 2xl:gap-10 mx-3 md:mx-14 lg:mx-20 xl:mx-20 2xl:mx-20 pt-6 md:pt-8 lg:pt-8 xl:pt-10 2xl:pt-10 pb-24">
       {productDeletedNoti && (
         <Alert
           message="Product Deleted Successfully"
@@ -108,19 +136,32 @@ const Products = () => {
           showIcon
         />
       )}
-      {products && products.length > 0 && (
-        <Link to="/add" className="absolute right-5 top-28 mt-[-10px]">
-          <IoMdAddCircleOutline title="Add product" size={20} />
-        </Link>
-      )}
-      <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-bold">
-        Product(s)
+      <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
+        {/* Hello {user.split(' ')[0]}. {products && products.length > 0 ? `This is your products list.` : `Add products to your list.`} */}
+        Hello {user && user.split(" ")[0]}.{" "}
+        {products && products.length > 0
+          ? `This is your products list.`
+          : `Add products to your list.`}
       </h1>
       {products && products.length > 0 ? (
         <>
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
+            {products && products.length > 0 && (
+              <div className="absolute top-16 right-0 flex flex-row justify-end items-center gap-3">
+                <input
+                  type="text"
+                  placeholder="Search Product"
+                  value={searchKey}
+                  className="outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 text-lg"
+                  onChange={handleSearchKeyChange}
+                />
+                <Link to="/add">
+                  <IoMdAddCircleOutline title="Add product" size={20} />
+                </Link>
+              </div>
+            )}
             <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <thead className="sticky top-0 left-0 z-50 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th
                     scope="col"
@@ -182,7 +223,7 @@ const Products = () => {
                         key={product.productPrice}
                         className="px-3 py-2 lg:px-4 lg:py-3 xl:px-4 xl:py-3 2xl:px-4 2xl:py-3 text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
                       >
-                        {product.productPrice}
+                        ${product.productPrice}
                       </td>
                       <td
                         key={product.productCompany}
