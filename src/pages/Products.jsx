@@ -41,7 +41,20 @@ const Products = () => {
             `https://crosscom-backend.onrender.com/search/${searchKey}`
           );
           res = await res.json();
-          res.result !== "No Product Found" && setProducts(res);
+
+          let userData = localStorage.getItem("user");
+          userData = JSON.parse(userData);
+
+          let productsArr = [];
+
+          if (res.length > 0 && userData) {
+            res.forEach((product) => {
+              if (product.userId === userData._id) {
+                productsArr.push(product);
+              }
+            });
+            setProducts(productsArr);
+          }
         };
 
         searchData();
@@ -144,26 +157,31 @@ const Products = () => {
           showIcon
         />
       )}
-      <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
-        Hello {user && user.split(" ")[0]}.{" "}
-        {products && products.length > 0
-          ? `This is your product list.`
-          : `Add products to your list.`}
-      </h1>
+      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-5">
+        <div>
+          <Search
+            searchKey={searchKey}
+            handleSearchKeyChange={handleSearchKeyChange}
+          />
+        </div>
+
+        <div>
+          <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
+            Hello {user && user.split(" ")[0]}.{" "}
+            {products && products.length > 0
+              ? `This is your product list.`
+              : `Add products to your list.`}
+          </h1>
+        </div>
+        <div className="absolute sm:relative right-5" >
+          <Link to="/add">
+            <IoMdAddCircleOutline title="Add product" size={20}/>
+          </Link>
+        </div>
+      </div>
       {products && products.length > 0 ? (
         <>
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
-            {products && products.length > 0 && (
-              <div className="absolute top-16 right-0 flex flex-row justify-end items-center gap-3">
-                <Search
-                  searchKey={searchKey}
-                  handleSearchKeyChange={handleSearchKeyChange}
-                />
-                <Link to="/add">
-                  <IoMdAddCircleOutline title="Add product" size={20} />
-                </Link>
-              </div>
-            )}
             <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 ">
               <thead className="sticky top-0 left-0 z-50 text-gray-700 uppercase bg-gray-50">
                 <tr>
@@ -206,10 +224,7 @@ const Products = () => {
               <tbody>
                 {products &&
                   products.map((product, index) => (
-                    <tr
-                      key={index + 1}
-                      className="bg-white border-b"
-                    >
+                    <tr key={index + 1} className="bg-white border-b">
                       <th
                         scope="row"
                         key={index}

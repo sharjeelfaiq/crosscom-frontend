@@ -6,7 +6,7 @@ const Search = ({searchKey, handleSearchKeyChange}) => {
       type="text"
       placeholder="Search Product"
       value={searchKey}
-      className="outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 text-lg"
+      className="outline-none w-40 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 lg:text-base text-sm"
       onChange={handleSearchKeyChange}
     />
   );
