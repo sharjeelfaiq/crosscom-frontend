@@ -5,17 +5,12 @@ import logo from "../assets/images/logo.png";
 
 const Header = () => {
   const [user, setUser] = useState(null);
-  const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
 
   /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     setUser(savedUser);
-
-    const savedUserName =
-      savedUser && JSON.parse(localStorage.getItem("user")).name;
-    setUserName(savedUserName);
   });
 
   const logout = () => {
