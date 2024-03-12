@@ -50,7 +50,7 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch("http://localhost:8080/get-products");
+      const res = await fetch("https://crosscom-backend.onrender.com/get-products");
       const data = await res.json();
 
       let userData = localStorage.getItem("user");
@@ -137,7 +137,6 @@ const Products = () => {
         />
       )}
       <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
-        {/* Hello {user.split(' ')[0]}. {products && products.length > 0 ? `This is your products list.` : `Add products to your list.`} */}
         Hello {user && user.split(" ")[0]}.{" "}
         {products && products.length > 0
           ? `This is your products list.`

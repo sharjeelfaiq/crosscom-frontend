@@ -36,7 +36,7 @@ const UpdateProduct = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getProducts = async () => {
     try {
-      const res = await fetch("http://localhost:8080/get-products");
+      const res = await fetch("https://crosscom-backend.onrender.com/get-products");
       let data = await res.json();
       /* eslint-disable-next-line array-callback-return */
       data = data.find((product) => {
@@ -83,7 +83,7 @@ const UpdateProduct = () => {
 
     try {
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch(`http://localhost:8080/update-product/${params.pid}`, {
+        await fetch(`https://crosscom-backend.onrender.com/update-product/${params.pid}`, {
           method: "put",
           body: JSON.stringify({
             productName,
