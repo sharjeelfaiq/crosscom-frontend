@@ -18,9 +18,9 @@ const Header = () => {
     navigate("/signin");
   };
   return (
-    <header className="bg-slate-400 h-20 w-full flex items-center justify-between px-3 mdpx-10">
+    <header className="bg-slate-400 h-20 w-full flex items-center justify-between px-5 mdpx-10">
       <Link to="/">
-        <img src={logo} alt="logo" className="h-full w-44" />
+        <img src={logo} alt="logo" className="h-full w-16" />
       </Link>
       <nav className="px-5">
         <ul className="flex items-center gap-5">
