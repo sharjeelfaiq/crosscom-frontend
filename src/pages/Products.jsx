@@ -36,7 +36,7 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(`http://localhost:8080/search/${searchKey}`);
+          let res = await fetch(`https://crosscom-backend.onrender.com/${searchKey}`);
           res = await res.json();
           res.result !== "No Product Found" && setProducts(res);
         };
@@ -73,7 +73,7 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`http://localhost:8080/delete-product/${pid}`, {
+      let res = await fetch(`https://crosscom-backend.onrender.com/${pid}`, {
         method: "delete",
       });
       res = await res.json();
@@ -92,7 +92,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `http://localhost:8080/delete-all-products/${uid}`,
+        `https://crosscom-backend.onrender.com/${uid}`,
         {
           method: "delete",
         }
