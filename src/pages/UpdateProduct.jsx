@@ -154,7 +154,7 @@ const UpdateProduct = () => {
           required
         />
         <input
-          type="text"
+          type="number"
           placeholder="Enter Product Price"
           value={productPrice}
           onChange={(e) => handleChange("product-price", e)}
