@@ -73,7 +73,7 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`https://crosscom-backend.onrender.com/${pid}`, {
+      let res = await fetch(`https://crosscom-backend.onrender.com/delete-product/${pid}`, {
         method: "delete",
       });
       res = await res.json();
@@ -92,7 +92,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `https://crosscom-backend.onrender.com/${uid}`,
+        `https://crosscom-backend.onrender.com/delete-all-products/${uid}`,
         {
           method: "delete",
         }
