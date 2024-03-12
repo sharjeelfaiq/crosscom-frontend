@@ -36,7 +36,7 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(`https://crosscom-backend.onrender.com/${searchKey}`);
+          let res = await fetch(`https://crosscom-backend.onrender.com/search/${searchKey}`);
           res = await res.json();
           res.result !== "No Product Found" && setProducts(res);
         };
