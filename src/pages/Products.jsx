@@ -4,6 +4,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { Alert } from "antd";
+import Search from "../components/Search";
 
 const Products = () => {
   const [user, setUser] = useState(null);
@@ -36,7 +37,9 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(`https://crosscom-backend.onrender.com/search/${searchKey}`);
+          let res = await fetch(
+            `https://crosscom-backend.onrender.com/search/${searchKey}`
+          );
           res = await res.json();
           res.result !== "No Product Found" && setProducts(res);
         };
@@ -50,7 +53,9 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch("https://crosscom-backend.onrender.com/get-products");
+      const res = await fetch(
+        "https://crosscom-backend.onrender.com/get-products"
+      );
       const data = await res.json();
 
       let userData = localStorage.getItem("user");
@@ -73,9 +78,12 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`https://crosscom-backend.onrender.com/delete-product/${pid}`, {
-        method: "delete",
-      });
+      let res = await fetch(
+        `https://crosscom-backend.onrender.com/delete-product/${pid}`,
+        {
+          method: "delete",
+        }
+      );
       res = await res.json();
       if (res) {
         setProductDeletedNoti(true);
@@ -139,7 +147,7 @@ const Products = () => {
       <h1 className="text-3xl md:text-4xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
         Hello {user && user.split(" ")[0]}.{" "}
         {products && products.length > 0
-          ? `This is your products list.`
+          ? `This is your product list.`
           : `Add products to your list.`}
       </h1>
       {products && products.length > 0 ? (
@@ -147,20 +155,17 @@ const Products = () => {
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
             {products && products.length > 0 && (
               <div className="absolute top-16 right-0 flex flex-row justify-end items-center gap-3">
-                <input
-                  type="text"
-                  placeholder="Search Product"
-                  value={searchKey}
-                  className="outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 text-lg"
-                  onChange={handleSearchKeyChange}
+                <Search
+                  searchKey={searchKey}
+                  handleSearchKeyChange={handleSearchKeyChange}
                 />
                 <Link to="/add">
                   <IoMdAddCircleOutline title="Add product" size={20} />
                 </Link>
               </div>
             )}
-            <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="sticky top-0 left-0 z-50 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 ">
+              <thead className="sticky top-0 left-0 z-50 text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th
                     scope="col"
@@ -203,7 +208,7 @@ const Products = () => {
                   products.map((product, index) => (
                     <tr
                       key={index + 1}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                      className="bg-white border-b"
                     >
                       <th
                         scope="row"
