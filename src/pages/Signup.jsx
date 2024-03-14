@@ -81,7 +81,7 @@ const Signup = () => {
             res = await res.json();
 
             if (res.status !== 409) {
-              if (!res.status !== 200) {
+              if (res.status !== 200) {
                 setLoader(true);
               } else {
                 localStorage.setItem("user", JSON.stringify(res.body));
