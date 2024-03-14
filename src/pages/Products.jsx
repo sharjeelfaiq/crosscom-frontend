@@ -38,7 +38,7 @@ const Products = () => {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
           let res = await fetch(
-            `https://crosscom-backend.onrender.com/search/${searchKey}`
+            `https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`
           );
           res = await res.json();
 
@@ -67,7 +67,7 @@ const Products = () => {
   const getProducts = async () => {
     try {
       const res = await fetch(
-        "https://crosscom-backend.onrender.com/get-products"
+        "https://pink-frantic-buffalo.cyclic.app/get-products"
       );
       const data = await res.json();
 
@@ -92,7 +92,7 @@ const Products = () => {
   const handleDeleteProduct = async (pid) => {
     try {
       let res = await fetch(
-        `https://crosscom-backend.onrender.com/delete-product/${pid}`,
+        `https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`,
         {
           method: "delete",
         }
@@ -113,7 +113,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `https://crosscom-backend.onrender.com/delete-all-products/${uid}`,
+        `https://pink-frantic-buffalo.cyclic.app/delete-all-products/${uid}`,
         {
           method: "delete",
         }
@@ -167,7 +167,7 @@ const Products = () => {
 
         <div>
           <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
-            Hello {user && user.split(" ")[0]}.{" "}
+            Hi, {user && user.split(" ")[0]}.{" "}
             {products && products.length > 0
               ? `This is your product list.`
               : `Add products to your list.`}

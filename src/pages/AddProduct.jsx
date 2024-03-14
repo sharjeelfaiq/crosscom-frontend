@@ -53,7 +53,7 @@ const AddProduct = () => {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
 
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch("https://crosscom-backend.onrender.com/add-product", {
+        await fetch("https://pink-frantic-buffalo.cyclic.app/add-product", {
           method: "post",
           body: JSON.stringify({
             userId,

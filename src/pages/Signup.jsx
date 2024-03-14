@@ -70,7 +70,7 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let res = await fetch("https://crosscom-backend.onrender.com/register", {
+            let res = await fetch("https://pink-frantic-buffalo.cyclic.app/register", {
               method: "post",
               body: JSON.stringify({ name, email, password }),
               headers: {
