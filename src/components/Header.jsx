@@ -26,13 +26,13 @@ const Header = () => {
         <ul className="flex items-center gap-5">
           {user ? (
             <li
-              className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none"
+              className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none cursor-pointer"
               onClick={logout}
             >
               <Link to="/signup">Logout</Link>
             </li>
           ) : (
-            <li className="w-24 text-white text-center bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none">
+            <li className="w-24 text-white text-center bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none cursor-pointer">
               <Link to={window.location.pathname === "/signin" ? "signup" : "signin"}>{window.location.pathname === "/signin" ? "Sign up" : "Sign in"}</Link>
             </li>
           )}
