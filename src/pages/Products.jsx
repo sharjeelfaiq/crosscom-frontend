@@ -144,7 +144,7 @@ const Products = () => {
         <Alert
           message="Product Deleted Successfully"
           type="success"
-          className="absolute top-5 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -153,7 +153,7 @@ const Products = () => {
         <Alert
           message="All Products Deleted Successfully"
           type="success"
-          className="absolute top-5 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}

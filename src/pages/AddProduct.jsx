@@ -93,7 +93,7 @@ const AddProduct = () => {
         <Alert
           message="Product Created Successfully"
           type="success"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -101,7 +101,7 @@ const AddProduct = () => {
         <Alert
           message="Fill in the required fields!"
           type="warning"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
           closable
         />

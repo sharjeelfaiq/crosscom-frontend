@@ -125,7 +125,7 @@ const Signup = () => {
         <Alert
           message="Passwords do not match."
           type="error"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -133,7 +133,7 @@ const Signup = () => {
         <Alert
           message="Fill in the required fields!"
           type="warning"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -141,7 +141,7 @@ const Signup = () => {
         <Alert
           message="Enter Correct Email."
           type="error"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -149,7 +149,7 @@ const Signup = () => {
         <Alert
           message="User Already Exist."
           type="error"
-          className="absolute top-5 right-0 text-right font-medium text-lg"
+          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
