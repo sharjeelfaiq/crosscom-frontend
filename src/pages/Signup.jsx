@@ -70,7 +70,7 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let res = await fetch("http://localhost:8080/register", {
+            let res = await fetch("https://crosscom-backend.onrender.com/register", {
               method: "post",
               body: JSON.stringify({ name, email, password }),
               headers: {
