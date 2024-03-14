@@ -16,6 +16,7 @@ const Signup = () => {
   const [passwordUnmatchedNoti, setPasswordUnmatchedNoti] = useState(false);
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [incorrectEmailNoti, setIncorrectEmailNoti] = useState(false);
+  const [alreadyExistNoti, setAlreadyExistNoti] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
@@ -69,7 +70,7 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let res = await fetch("https://crosscom-backend.onrender.com/register", {
+            let res = await fetch("http://localhost:8080/register", {
               method: "post",
               body: JSON.stringify({ name, email, password }),
               headers: {
@@ -79,17 +80,27 @@ const Signup = () => {
 
             res = await res.json();
 
-            if (res.status !== 200) {
-              setLoader(true);
-            } else {
-              localStorage.setItem("user", JSON.stringify(res.body));
+            if (res.status !== 409) {
+              if (!res.status !== 200) {
+                setLoader(true);
+              } else {
+                localStorage.setItem("user", JSON.stringify(res.body));
 
+                setName("");
+                setEmail("");
+                setPassword("");
+                setConfirmPassword("");
+
+                navigate("/");
+              }
+            } else {
               setName("");
               setEmail("");
               setPassword("");
               setConfirmPassword("");
 
-              navigate("/");
+              setAlreadyExistNoti(true);
+              setTimeout(() => setAlreadyExistNoti(false), 5000);
             }
           } else {
             setPasswordUnmatchedNoti(true);
@@ -134,6 +145,14 @@ const Signup = () => {
           showIcon
         />
       )}
+      {alreadyExistNoti && (
+        <Alert
+          message="User Already Exist."
+          type="error"
+          className="absolute top-5 right-0 text-right font-medium text-lg"
+          showIcon
+        />
+      )}
       <h1 className="text-4xl text-slate-800 font-bold">Register</h1>
       <form className="flex flex-col items-center  gap-4">
         <input
@@ -144,7 +163,7 @@ const Signup = () => {
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
             fillFieldsNoti && "border-b-red-300"
           } text-lg`}
-          disabled = {!loader ? false : true}
+          disabled={!loader ? false : true}
           autoFocus
           required
         />
@@ -157,7 +176,7 @@ const Signup = () => {
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
             fillFieldsNoti && "border-b-red-300"
           } text-lg`}
-          disabled = {!loader ? false : true}
+          disabled={!loader ? false : true}
           required
         />
         <div className="relative">
@@ -169,7 +188,7 @@ const Signup = () => {
             className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
               fillFieldsNoti && "border-b-red-300"
             } text-lg`}
-            disabled = {!loader ? false : true}
+            disabled={!loader ? false : true}
             required
           />
           {typePassword === "password" ? (
@@ -201,7 +220,7 @@ const Signup = () => {
             className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
               fillFieldsNoti && "border-b-red-300"
             } text-lg`}
-            disabled = {!loader ? false : true}
+            disabled={!loader ? false : true}
             required
           />
 
