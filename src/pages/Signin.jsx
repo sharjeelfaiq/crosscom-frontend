@@ -11,6 +11,7 @@ const Signin = () => {
   const [typePassword, setTypePassword] = useState("password");
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [noUserFoundNoti, setNoUserFoundNoti] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,10 +42,10 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       if (email && password) {
-        let result = await fetch("https://crosscom-backend.onrender.com/signin", {
+        let res = await fetch("https://crosscom-backend.onrender.com/signin", {
           method: "post",
           body: JSON.stringify({ email, password }),
           headers: {
@@ -52,20 +53,25 @@ const Signin = () => {
           },
         });
 
-        result = await result.json();
-        if (result.name) {
-          localStorage.setItem("user", JSON.stringify(result));
-        } else if (result.message === "No user found") {
-          setFillFieldsNoti(false);
-          setNoUserFoundNoti(true);
-          setTimeout(() => setNoUserFoundNoti(false), 10000);
-        } else {
-          console.error("Unexpected response:", result);
-          throw new Error("Something went wrong"); // Trigger catch block
-        }
+        res = await res.json();
 
-        setEmail("");
-        setPassword("");
+        if (res.status !== 200) {
+          setLoader(true);
+        } else {
+          if (res.body.name) {
+            localStorage.setItem("user", JSON.stringify(res.body));
+          } else if (res.body.message === "No user found") {
+            setFillFieldsNoti(false);
+            setNoUserFoundNoti(true);
+            setTimeout(() => setNoUserFoundNoti(false), 10000);
+          } else {
+            console.error("Unexpected response:", res.body);
+            throw new Error("Something went wrong"); // Trigger catch block
+          }
+
+          setEmail("");
+          setPassword("");
+        }
       } else {
         setNoUserFoundNoti(false);
         setFillFieldsNoti(true);
@@ -102,7 +108,10 @@ const Signin = () => {
           placeholder="Enter Email"
           value={email}
           onChange={(e) => handleChange("email", e)}
-          className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${fillFieldsNoti && 'border-b-red-300'} text-lg`}
+          className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
+            fillFieldsNoti && "border-b-red-300"
+          } text-lg`}
+          disabled = {!loader ? false : true}
           autoFocus
           required
         />
@@ -112,7 +121,10 @@ const Signin = () => {
             placeholder="Enter Password"
             value={password}
             onChange={(e) => handleChange("password", e)}
-            className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${fillFieldsNoti && 'border-b-red-300'} text-lg`}
+            className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
+              fillFieldsNoti && "border-b-red-300"
+            } text-lg`}
+            disabled = {!loader ? false : true}
             required
           />
           {typePassword === "password" ? (
@@ -135,13 +147,24 @@ const Signin = () => {
             />
           )}
         </div>
-        <button
-          type="submit"
-          className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
-          onClick={handleSubmit}
-        >
-          Sign In
-        </button>
+        {!loader ? (
+          <button
+            type="submit"
+            className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
+            onClick={handleSubmit}
+          >
+            Sign In
+          </button>
+        ) : (
+          <div
+            className="mt-5 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
+        )}
       </form>
       <h3 className="mt-[-20px]">
         Don't have an account?{" "}
