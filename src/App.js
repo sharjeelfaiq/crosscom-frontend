@@ -1,3 +1,12 @@
+/**
+ * The code sets up a React application with routing using react-router-dom for different pages like
+ * Products, AddProduct, UpdateProduct, Signin, and Signup.
+ * @returns The `App` component is being returned, which wraps the `RouterProvider` component with the
+ * `router` configuration created using `createBrowserRouter`. The `RouterProvider` component provides
+ * the routing functionality to the application based on the specified routes and elements defined in
+ * the configuration.
+ */
+
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import Header from "./components/Header";
