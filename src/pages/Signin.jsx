@@ -45,7 +45,7 @@ const Signin = () => {
 
     try {
       if (email && password) {
-        let res = await fetch("https://pink-frantic-buffalo.cyclic.app/signin", {
+        let res = await fetch("https://crosscom-backend.onrender.com/signin", {
           method: "post",
           body: JSON.stringify({ email, password }),
           headers: {

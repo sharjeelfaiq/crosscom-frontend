@@ -56,7 +56,7 @@ const AddProduct = () => {
       const token = JSON.parse(localStorage.getItem("token"));
 
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch("https://pink-frantic-buffalo.cyclic.app/add-product", {
+        await fetch("https://crosscom-backend.onrender.com/add-product", {
           method: "post",
           body: JSON.stringify({
             userId,

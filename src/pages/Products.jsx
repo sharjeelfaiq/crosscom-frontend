@@ -44,7 +44,7 @@ const Products = () => {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
           let res = await fetch(
-            `https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`
+            `https://crosscom-backend.onrender.com/search/${searchKey}`
           );
           res = await res.json();
 
@@ -75,7 +75,7 @@ const Products = () => {
       const token = JSON.parse(localStorage.getItem("token"));
 
       const res = await fetch(
-        "https://pink-frantic-buffalo.cyclic.app/get-products",
+        "https://crosscom-backend.onrender.com/get-products",
         {
           headers: {
             authorization: token,
@@ -106,7 +106,7 @@ const Products = () => {
   const handleDeleteProduct = async (pid) => {
     try {
       let res = await fetch(
-        `https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`,
+        `https://crosscom-backend.onrender.com/delete-product/${pid}`,
         {
           method: "delete",
         }
@@ -127,7 +127,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `https://pink-frantic-buffalo.cyclic.app/delete-all-products/${uid}`,
+        `https://crosscom-backend.onrender.com/delete-all-products/${uid}`,
         {
           method: "delete",
         }
