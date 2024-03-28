@@ -37,7 +37,7 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(`http://localhost:8080/search/${searchKey}`);
+          let res = await fetch(`https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`);
           res = await res.json();
 
           let userData = localStorage.getItem("user");
@@ -66,7 +66,7 @@ const Products = () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
 
-      const res = await fetch("http://localhost:8080/get-products", {
+      const res = await fetch("https://pink-frantic-buffalo.cyclic.app/get-products", {
         headers: {
           authorization: token,
         },
@@ -94,7 +94,7 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`http://localhost:8080/delete-product/${pid}`, {
+      let res = await fetch(`https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`, {
         method: "delete",
       });
       res = await res.json();
@@ -113,7 +113,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `http://localhost:8080/delete-all-products/${uid}`,
+        `https://pink-frantic-buffalo.cyclic.app/delete-all-products/${uid}`,
         {
           method: "delete",
         }

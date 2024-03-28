@@ -45,7 +45,7 @@ const Signin = () => {
 
     try {
       if (email && password) {
-        let res = await fetch("http://localhost:8080/signin", {
+        let res = await fetch("https://pink-frantic-buffalo.cyclic.app/signin", {
           method: "post",
           body: JSON.stringify({ email, password }),
           headers: {
