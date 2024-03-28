@@ -4,7 +4,12 @@ import { MdDeleteForever } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { Alert } from "antd";
+import Modal from "react-modal";
+
+import AddProduct from "./AddProduct";
 import Search from "../components/Search";
+
+Modal.setAppElement("#root");
 
 const Products = () => {
   const [user, setUser] = useState(null);
@@ -12,6 +17,7 @@ const Products = () => {
   const [productDeletedNoti, setProductDeletedNoti] = useState(false);
   const [productsDeletedNoti, setProductsDeletedNoti] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,13 +37,15 @@ const Products = () => {
     } catch (error) {
       console.error("Error in Products.jsx; 2nd useEffect() hook", error);
     }
-  }, []);
+  }, [modalIsOpen]);
 
   useEffect(() => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(`https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`);
+          let res = await fetch(
+            `https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`
+          );
           res = await res.json();
 
           let userData = localStorage.getItem("user");
@@ -66,11 +74,14 @@ const Products = () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
 
-      const res = await fetch("https://pink-frantic-buffalo.cyclic.app/get-products", {
-        headers: {
-          authorization: token,
-        },
-      });
+      const res = await fetch(
+        "https://pink-frantic-buffalo.cyclic.app/get-products",
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
       const data = await res.json();
 
@@ -94,9 +105,12 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(`https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`, {
-        method: "delete",
-      });
+      let res = await fetch(
+        `https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`,
+        {
+          method: "delete",
+        }
+      );
       res = await res.json();
       if (res) {
         setProductDeletedNoti(true);
@@ -138,6 +152,14 @@ const Products = () => {
     }
   };
 
+  const openAddModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="relative h-auto flex flex-col items-center gap-6 xl:gap-10 2xl:gap-10 mx-3 md:mx-14 lg:mx-20 xl:mx-20 2xl:mx-20 pt-6 md:pt-8 lg:pt-8 xl:pt-10 2xl:pt-10 pb-24">
       {productDeletedNoti && (
@@ -173,29 +195,34 @@ const Products = () => {
               : `Add products to your list.`}
           </h1>
           {products && products.length > 0 ? null : (
-            <h3>
-              No product found.{" "}
-              <Link
-                to="/add"
-                className="text-slate-400 hover:text-slate-500 hover:underline"
-              >
-                Add a product
-              </Link>
-            </h3>
+            <h3>No product found. Add a product</h3>
           )}
         </div>
 
         <div className="mt-2 absolute sm:relative right-5">
-          <Link to="/add">
-            <IoMdAddCircleOutline title="Add product" size={20} />
-          </Link>
+          {/* <Link to="/add"> */}
+          <IoMdAddCircleOutline
+            title="Add product"
+            size={20}
+            onClick={openAddModal}
+            className="cursor-pointer"
+          />
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeAddModal}
+            contentLabel="Add Product"
+            className="w-96 mx-auto bg-white my-20 relative"
+          >
+            <AddProduct />
+          </Modal>
+          {/* </Link> */}
         </div>
       </div>
       {products && products.length > 0 ? (
         <>
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
             <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 ">
-              <thead className="sticky top-0 left-0 z-50 text-gray-700 uppercase bg-gray-50">
+              <thead className="text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th
                     scope="col"

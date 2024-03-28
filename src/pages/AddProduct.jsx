@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { useEffect, useState } from "react";
+import { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Alert } from "antd";
 
@@ -11,7 +13,7 @@ const AddProduct = () => {
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [productSuccessNoti, setProductSuccessNoti] = useState(false);
 
-  const navigate = useNavigate();
+  /* const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -20,7 +22,7 @@ const AddProduct = () => {
     } catch (error) {
       console.error("Error in AddProduct.jsx; useEffect() hook", error);
     }
-  });
+  }); */
 
   const handleChange = (inputName, e) => {
     try {
@@ -65,7 +67,7 @@ const AddProduct = () => {
           }),
           headers: {
             "Content-Type": "application/json",
-            authorization: token
+            authorization: token,
           },
         });
 
@@ -87,10 +89,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div
-      className="flex flex-col items-center gap-20 mx-20 pt-10 pb-28 relative"
-      style={{ height: "calc(100dvh - 5rem)" }}
-    >
+    <div className="flex flex-col items-center gap-20 relative border-2 py-10 border-slate-500 rounded-xl">
       {productSuccessNoti && (
         <Alert
           message="Product Created Successfully"
@@ -115,7 +114,7 @@ const AddProduct = () => {
           placeholder="Enter Product Name"
           value={productName}
           onChange={(e) => handleChange("product-name", e)}
-          className={`${
+          className={`outline-none ${
             fillFieldsNoti === true && "border-b-2 border-b-red-300"
           }outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1  text-lg`}
           autoFocus
@@ -159,16 +158,6 @@ const AddProduct = () => {
           Add
         </button>
       </form>
-      <h3 className="mt-[-20px]">
-          See your products on{" "}
-          <Link
-            to="/"
-            className="text-slate-400 hover:text-slate-500 hover:underline"
-          >
-            products
-          </Link>{" "} 
-          page.
-        </h3>
     </div>
   );
 };

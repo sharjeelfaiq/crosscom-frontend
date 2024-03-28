@@ -40,10 +40,6 @@ const router = createBrowserRouter([
         element: <Products />,
       },
       {
-        path: "/add",
-        element: <AddProduct />,
-      },
-      {
         path: "/update/:pid",
         element: <UpdateProduct />,
       },
