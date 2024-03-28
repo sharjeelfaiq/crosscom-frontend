@@ -70,7 +70,7 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let res = await fetch("https://pink-frantic-buffalo.cyclic.app/register", {
+            let res = await fetch("http://localhost:8080/register", {
               method: "post",
               body: JSON.stringify({ name, email, password }),
               headers: {
@@ -85,6 +85,7 @@ const Signup = () => {
                 setLoader(true);
               } else {
                 localStorage.setItem("user", JSON.stringify(res.body));
+                localStorage.setItem("token", JSON.stringify(res.auth));
 
                 setName("");
                 setEmail("");

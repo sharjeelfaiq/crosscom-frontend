@@ -37,9 +37,7 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(
-            `https://pink-frantic-buffalo.cyclic.app/search/${searchKey}`
-          );
+          let res = await fetch(`http://localhost:8080/search/${searchKey}`);
           res = await res.json();
 
           let userData = localStorage.getItem("user");
@@ -66,9 +64,14 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch(
-        "https://pink-frantic-buffalo.cyclic.app/get-products"
-      );
+      const token = JSON.parse(localStorage.getItem("token"));
+
+      const res = await fetch("http://localhost:8080/get-products", {
+        headers: {
+          authorization: token,
+        },
+      });
+
       const data = await res.json();
 
       let userData = localStorage.getItem("user");
@@ -91,12 +94,9 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(
-        `https://pink-frantic-buffalo.cyclic.app/delete-product/${pid}`,
-        {
-          method: "delete",
-        }
-      );
+      let res = await fetch(`http://localhost:8080/delete-product/${pid}`, {
+        method: "delete",
+      });
       res = await res.json();
       if (res) {
         setProductDeletedNoti(true);
@@ -113,7 +113,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `https://pink-frantic-buffalo.cyclic.app/delete-all-products/${uid}`,
+        `http://localhost:8080/delete-all-products/${uid}`,
         {
           method: "delete",
         }
@@ -157,7 +157,7 @@ const Products = () => {
           showIcon
         />
       )}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center gap-5">
+      <div className="w-full flex flex-col md:flex-row justify-between items-start gap-5">
         <div>
           <Search
             searchKey={searchKey}
@@ -165,17 +165,29 @@ const Products = () => {
           />
         </div>
 
-        <div>
+        <div className="text-center flex flex-col items-center justify-start gap-3">
           <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
             Hi, {user && user.split(" ")[0]}.{" "}
             {products && products.length > 0
               ? `This is your product list.`
               : `Add products to your list.`}
           </h1>
+          {products && products.length > 0 ? null : (
+            <h3>
+              No product found.{" "}
+              <Link
+                to="/add"
+                className="text-slate-400 hover:text-slate-500 hover:underline"
+              >
+                Add a product
+              </Link>
+            </h3>
+          )}
         </div>
-        <div className="absolute sm:relative right-5" >
+
+        <div className="mt-2 absolute sm:relative right-5">
           <Link to="/add">
-            <IoMdAddCircleOutline title="Add product" size={20}/>
+            <IoMdAddCircleOutline title="Add product" size={20} />
           </Link>
         </div>
       </div>
@@ -288,17 +300,7 @@ const Products = () => {
             Delete All
           </button>
         </>
-      ) : (
-        <h3 className="mt-[-20px]">
-          No product found.{" "}
-          <Link
-            to="/add"
-            className="text-slate-400 hover:text-slate-500 hover:underline"
-          >
-            Add a product
-          </Link>
-        </h3>
-      )}
+      ) : null}
     </div>
   );
 };

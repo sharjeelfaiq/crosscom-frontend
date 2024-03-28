@@ -51,9 +51,10 @@ const AddProduct = () => {
 
     try {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
+      const token = JSON.parse(localStorage.getItem("token"));
 
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch("https://pink-frantic-buffalo.cyclic.app/add-product", {
+        await fetch("http://localhost:8080/add-product", {
           method: "post",
           body: JSON.stringify({
             userId,
@@ -64,6 +65,7 @@ const AddProduct = () => {
           }),
           headers: {
             "Content-Type": "application/json",
+            authorization: token
           },
         });
 
