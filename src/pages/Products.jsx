@@ -200,7 +200,6 @@ const Products = () => {
         </div>
 
         <div className="mt-2 absolute sm:relative right-5">
-          {/* <Link to="/add"> */}
           <IoMdAddCircleOutline
             title="Add product"
             size={20}
@@ -213,9 +212,8 @@ const Products = () => {
             contentLabel="Add Product"
             className="w-96 mx-auto bg-white my-20 relative"
           >
-            <AddProduct />
+            <AddProduct closeAddModal={closeAddModal} />
           </Modal>
-          {/* </Link> */}
         </div>
       </div>
       {products && products.length > 0 ? (

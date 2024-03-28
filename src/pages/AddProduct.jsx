@@ -1,28 +1,15 @@
-// import { useEffect, useState } from "react";
+import { RiCloseLine } from "react-icons/ri";
 import { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import { Alert } from "antd";
 
-const AddProduct = () => {
+const AddProduct = ({closeAddModal}) => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productCategory, setProductCategory] = useState("");
   const [productCompany, setProductCompany] = useState("");
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [productSuccessNoti, setProductSuccessNoti] = useState(false);
-
-  /* const navigate = useNavigate();
-
-  useEffect(() => {
-    try {
-      const user = !localStorage.getItem("user");
-      user && navigate("/signup");
-    } catch (error) {
-      console.error("Error in AddProduct.jsx; useEffect() hook", error);
-    }
-  }); */
 
   const handleChange = (inputName, e) => {
     try {
@@ -94,7 +81,7 @@ const AddProduct = () => {
         <Alert
           message="Product Created Successfully"
           type="success"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 font-medium text-xs"
           showIcon
         />
       )}
@@ -102,12 +89,13 @@ const AddProduct = () => {
         <Alert
           message="Fill in the required fields!"
           type="warning"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 font-medium text-xs"
           showIcon
           closable
         />
       )}
       <h1 className="text-4xl text-slate-800 font-bold">Add Product</h1>
+      <RiCloseLine onClick={() => closeAddModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
       <form className="flex flex-col items-center gap-4">
         <input
           type="text"
