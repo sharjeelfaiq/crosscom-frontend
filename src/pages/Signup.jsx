@@ -97,6 +97,8 @@ const Signup = ({ closeModal }) => {
                 setConfirmPassword("");
 
                 navigate("/");
+
+                closeModal();
               }
             } else {
               setName("");

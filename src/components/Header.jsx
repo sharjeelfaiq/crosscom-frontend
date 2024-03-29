@@ -34,18 +34,20 @@ const Header = () => {
       <Link to="/">
         <img src={logo} alt="logo" className="h-full w-16" />
       </Link>
-      <nav className="px-5">
+      <nav>
         <ul className="flex items-center gap-5">
           {user ? (
-            <li
-              className="text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none cursor-pointer"
-              onClick={logout}
-            >
-              <Link to="/signin">Logout</Link>
-            </li>
+            <Link to="/signin">
+              <li
+                className="w-20 text-center text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 md:px-2 md:py-2.5 focus:outline-none cursor-pointer"
+                onClick={logout}
+              >
+                Logout
+              </li>
+            </Link>
           ) : (
             <li
-              className="w-24 text-white text-center bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 focus:outline-none cursor-pointer"
+              className="w-20 text-white text-center bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 md:px-2 md:py-2.5 focus:outline-none cursor-pointer"
               onClick={openModal}
             >
               Sign Up

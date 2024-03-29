@@ -24,7 +24,7 @@ const Products = () => {
   useEffect(() => {
     try {
       const user = localStorage.getItem("user");
-      !user && navigate("/signup");
+      !user && navigate("/signin");
       setUser(JSON.parse(user).name);
     } catch (error) {
       console.error("Error in Products.jsx; 1st useEffect() hook", error);
@@ -180,14 +180,12 @@ const Products = () => {
         />
       )}
       <div className="w-full flex flex-col md:flex-row justify-between items-start gap-5">
-        <div>
           <Search
             searchKey={searchKey}
             setSearchKey={setSearchKey}
             handleSearchKeyChange={handleSearchKeyChange}
             getProducts={getProducts}
           />
-        </div>
 
         <div className="text-center flex flex-col items-center justify-start gap-3">
           <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
@@ -201,12 +199,11 @@ const Products = () => {
           )}
         </div>
 
-        <div className="mt-2 absolute sm:relative right-5">
           <IoMdAddCircleOutline
             title="Add product"
             size={20}
             onClick={openModal}
-            className="cursor-pointer"
+            className="cursor-pointer mt-2 absolute sm:relative right-5"
           />
           <Modal
             isOpen={modalIsOpen}
@@ -216,7 +213,6 @@ const Products = () => {
           >
             <AddProduct closeModal={closeModal} />
           </Modal>
-        </div>
       </div>
       {products && products.length > 0 ? (
         <>
