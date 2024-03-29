@@ -93,7 +93,7 @@ const Signin = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-20 mx-20 pt-10 pb-28 relative">
+    <div className="flex flex-col items-center gap-20 mx-10 py-10 relative">
       {fillFieldsNoti && (
         <Alert
           message="Fill in the required fields!"
