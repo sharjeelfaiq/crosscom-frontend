@@ -183,7 +183,9 @@ const Products = () => {
         <div>
           <Search
             searchKey={searchKey}
+            setSearchKey={setSearchKey}
             handleSearchKeyChange={handleSearchKeyChange}
+            getProducts={getProducts}
           />
         </div>
 
