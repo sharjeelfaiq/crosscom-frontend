@@ -214,7 +214,7 @@ const Products = () => {
         <>
           <div className="max-h-96 container overflow-y-auto flex justify-center customScrollBar">
             <table className="table-auto w-full text-xs md:text-sm text-left rtl:text-right text-gray-500 ">
-              <thead className="text-gray-700 uppercase bg-gray-50">
+              <thead className="sticky top-0 left-0 text-gray-700 uppercase bg-gray-50">
                 <tr>
                   <th
                     scope="col"

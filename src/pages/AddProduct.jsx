@@ -8,7 +8,6 @@ const AddProduct = ({ onOk }) => {
   const [productCategory, setProductCategory] = useState("");
   const [productCompany, setProductCompany] = useState("");
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
-  const [productSuccessNoti, setProductSuccessNoti] = useState(false);
 
   const handleChange = (inputName, e) => {
     try {
@@ -65,11 +64,9 @@ const AddProduct = ({ onOk }) => {
         onOk();
 
         setFillFieldsNoti(false);
-        setProductSuccessNoti(true);
-        setTimeout(() => setProductSuccessNoti(false), 5000);
       } else {
         setFillFieldsNoti(true);
-        setTimeout(() => setFillFieldsNoti(false), 5000);
+        setTimeout(() => setFillFieldsNoti(false), 3000);
       }
     } catch (error) {
       console.error("Error in AddProduct.jsx; handleSubmit() function", error);
@@ -78,14 +75,6 @@ const AddProduct = ({ onOk }) => {
 
   return (
     <div className="flex flex-col items-center gap-20 relative py-10rounded-xl">
-      {productSuccessNoti && (
-        <Alert
-          message="Product Created Successfully"
-          type="success"
-          className="absolute top-0 left-0 font-medium text-xs"
-          showIcon
-        />
-      )}
       {fillFieldsNoti && (
         <Alert
           message="Fill in the required fields!"
