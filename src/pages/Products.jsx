@@ -3,13 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdDeleteForever } from "react-icons/md";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
-import { Alert } from "antd";
-import Modal from "react-modal";
+import { Alert, Modal } from "antd";
 
 import AddProduct from "./AddProduct";
 import Search from "../components/Search";
-
-Modal.setAppElement("#root");
 
 const Products = () => {
   const [user, setUser] = useState(null);
@@ -17,7 +14,7 @@ const Products = () => {
   const [productDeletedNoti, setProductDeletedNoti] = useState(false);
   const [productsDeletedNoti, setProductsDeletedNoti] = useState(false);
   const [searchKey, setSearchKey] = useState("");
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -37,7 +34,7 @@ const Products = () => {
     } catch (error) {
       console.error("Error in Products.jsx; 2nd useEffect() hook", error);
     }
-  }, [modalIsOpen]);
+  }, [isModalOpen]);
 
   useEffect(() => {
     try {
@@ -152,12 +149,16 @@ const Products = () => {
     }
   };
 
-  const openModal = () => {
-    setIsOpen(true);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -180,12 +181,12 @@ const Products = () => {
         />
       )}
       <div className="w-full flex flex-col md:flex-row justify-between items-start gap-5">
-          <Search
-            searchKey={searchKey}
-            setSearchKey={setSearchKey}
-            handleSearchKeyChange={handleSearchKeyChange}
-            getProducts={getProducts}
-          />
+        <Search
+          searchKey={searchKey}
+          setSearchKey={setSearchKey}
+          handleSearchKeyChange={handleSearchKeyChange}
+          getProducts={getProducts}
+        />
 
         <div className="text-center flex flex-col items-center justify-start gap-3">
           <h1 className="text-2xl md:text-2xl lg:text-4xl xl:text-4xl 2xl:text-4xl text-slate-800 font-medium">
@@ -199,20 +200,15 @@ const Products = () => {
           )}
         </div>
 
-          <IoMdAddCircleOutline
-            title="Add product"
-            size={20}
-            onClick={openModal}
-            className="cursor-pointer mt-2 absolute sm:relative right-5"
-          />
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Add Product"
-            className="w-96 mx-auto bg-white mt-10"
-          >
-            <AddProduct closeModal={closeModal} />
-          </Modal>
+        <IoMdAddCircleOutline
+          title="Add product"
+          size={20}
+          onClick={showModal}
+          className="cursor-pointer mt-2 absolute sm:relative right-5"
+        />
+        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <AddProduct onOk={handleOk} />
+        </Modal>
       </div>
       {products && products.length > 0 ? (
         <>

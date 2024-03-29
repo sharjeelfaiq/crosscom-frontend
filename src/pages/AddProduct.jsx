@@ -1,9 +1,8 @@
-import { RiCloseLine } from "react-icons/ri";
 import { useState } from "react";
 
 import { Alert } from "antd";
 
-const AddProduct = ({closeModal}) => {
+const AddProduct = ({ onOk }) => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productCategory, setProductCategory] = useState("");
@@ -63,6 +62,8 @@ const AddProduct = ({closeModal}) => {
         setProductCategory("");
         setProductCompany("");
 
+        onOk();
+
         setFillFieldsNoti(false);
         setProductSuccessNoti(true);
         setTimeout(() => setProductSuccessNoti(false), 5000);
@@ -76,7 +77,7 @@ const AddProduct = ({closeModal}) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-20 relative border-2 py-10 border-slate-500 rounded-xl">
+    <div className="flex flex-col items-center gap-20 relative py-10rounded-xl">
       {productSuccessNoti && (
         <Alert
           message="Product Created Successfully"
@@ -95,7 +96,6 @@ const AddProduct = ({closeModal}) => {
         />
       )}
       <h1 className="text-4xl text-slate-800 font-bold">Add Product</h1>
-      <RiCloseLine onClick={() => closeModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
       <form className="flex flex-col items-center gap-4">
         <input
           type="text"

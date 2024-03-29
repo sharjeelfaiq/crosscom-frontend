@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import { Alert } from "antd";
-import Modal from "react-modal";
+import { Alert, Modal } from "antd";
 import Signup from "./Signup";
 
 const Signin = () => {
@@ -13,8 +12,7 @@ const Signin = () => {
   const [typePassword, setTypePassword] = useState("password");
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [noUserFoundNoti, setNoUserFoundNoti] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [loader, setLoader] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,14 +23,6 @@ const Signin = () => {
       console.error(error);
     }
   });
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
 
   const handleChange = (inputName, e) => {
     try {
@@ -66,24 +56,20 @@ const Signin = () => {
 
         res = await res.json();
 
-        if (res.status !== 200) {
-          setLoader(true);
+        if (res.auth) {
+          localStorage.setItem("user", JSON.stringify(res.body));
+          localStorage.setItem("token", JSON.stringify(res.auth));
+        } else if (res.body.message === "No user found") {
+          setFillFieldsNoti(false);
+          setNoUserFoundNoti(true);
+          setTimeout(() => setNoUserFoundNoti(false), 10000);
         } else {
-          if (res.auth) {
-            localStorage.setItem("user", JSON.stringify(res.body));
-            localStorage.setItem("token", JSON.stringify(res.auth));
-          } else if (res.body.message === "No user found") {
-            setFillFieldsNoti(false);
-            setNoUserFoundNoti(true);
-            setTimeout(() => setNoUserFoundNoti(false), 10000);
-          } else {
-            console.error("Unexpected response:", res.body);
-            throw new Error("Something went wrong"); // Trigger catch block
-          }
-
-          setEmail("");
-          setPassword("");
+          console.error("Unexpected response:", res.body);
+          throw new Error("Something went wrong"); // Trigger catch block
         }
+
+        setEmail("");
+        setPassword("");
       } else {
         setNoUserFoundNoti(false);
         setFillFieldsNoti(true);
@@ -92,6 +78,18 @@ const Signin = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -123,7 +121,6 @@ const Signin = () => {
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
             fillFieldsNoti && "border-b-red-300"
           } text-lg`}
-          disabled={!loader ? false : true}
           autoFocus
           required
         />
@@ -136,7 +133,6 @@ const Signin = () => {
             className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
               fillFieldsNoti && "border-b-red-300"
             } text-lg`}
-            disabled={!loader ? false : true}
             required
           />
           {typePassword === "password" ? (
@@ -159,41 +155,25 @@ const Signin = () => {
             />
           )}
         </div>
-        {!loader ? (
-          <button
-            type="submit"
-            className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
-            onClick={handleSubmit}
-          >
-            Sign In
-          </button>
-        ) : (
-          <div
-            className="mt-5 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
-          >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
-        )}
+        <button
+          type="submit"
+          className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
+          onClick={handleSubmit}
+        >
+          Sign In
+        </button>
       </form>
       <h3 className="mt-[-20px]">
         Don't have an account?{" "}
         <span
-          className="text-slate-400 hover:text-slate-500  hover:underline"
-          onClick={openModal}
+          className="cursor-pointer text-slate-400 hover:text-slate-500  hover:underline"
+          onClick={showModal}
         >
           Register here.
         </span>
       </h3>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Sign up"
-        className="w-96 mx-auto bg-white mt-10"
-      >
-        <Signup closeModal={closeModal} />
+      <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <Signup onOk={handleOk} />
       </Modal>
     </div>
   );

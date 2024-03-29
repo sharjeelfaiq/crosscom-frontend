@@ -4,9 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Alert } from "antd";
-import { RiCloseLine } from "react-icons/ri";
 
-const Signup = ({ closeModal }) => {
+const Signup = ({onOk}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +17,6 @@ const Signup = ({ closeModal }) => {
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [incorrectEmailNoti, setIncorrectEmailNoti] = useState(false);
   const [alreadyExistNoti, setAlreadyExistNoti] = useState(false);
-  const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
 
@@ -85,9 +83,6 @@ const Signup = ({ closeModal }) => {
             res = await res.json();
 
             if (res.status !== 409) {
-              if (res.status !== 200) {
-                setLoader(true);
-              } else {
                 localStorage.setItem("user", JSON.stringify(res.body));
                 localStorage.setItem("token", JSON.stringify(res.auth));
 
@@ -95,11 +90,10 @@ const Signup = ({ closeModal }) => {
                 setEmail("");
                 setPassword("");
                 setConfirmPassword("");
-
+                
                 navigate("/");
 
-                closeModal();
-              }
+                onOk();
             } else {
               setName("");
               setEmail("");
@@ -127,7 +121,7 @@ const Signup = ({ closeModal }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-20 relative border-2 py-10 border-slate-500 rounded-xl">
+    <div className="flex flex-col items-center gap-20 relative rounded-xl">
       {passwordUnmatchedNoti && (
         <Alert
           message="Passwords do not match."
@@ -161,7 +155,6 @@ const Signup = ({ closeModal }) => {
         />
       )}
       <h1 className="text-4xl text-slate-800 font-bold">Register</h1>
-      <RiCloseLine onClick={() => closeModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
       <form className="flex flex-col items-center  gap-4">
         <input
           type="text"
@@ -171,7 +164,6 @@ const Signup = ({ closeModal }) => {
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
             fillFieldsNoti && "border-b-red-300"
           } text-lg`}
-          disabled={!loader ? false : true}
           autoFocus
           required
         />
@@ -184,7 +176,6 @@ const Signup = ({ closeModal }) => {
           className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
             fillFieldsNoti && "border-b-red-300"
           } text-lg`}
-          disabled={!loader ? false : true}
           required
         />
         <div className="relative">
@@ -196,7 +187,6 @@ const Signup = ({ closeModal }) => {
             className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
               fillFieldsNoti && "border-b-red-300"
             } text-lg`}
-            disabled={!loader ? false : true}
             required
           />
           {typePassword === "password" ? (
@@ -228,7 +218,6 @@ const Signup = ({ closeModal }) => {
             className={`outline-none w-60 border-b-2 border-b-slate-300 focus:border-b-slate-400 p-1 ${
               fillFieldsNoti && "border-b-red-300"
             } text-lg`}
-            disabled={!loader ? false : true}
             required
           />
 
@@ -252,7 +241,6 @@ const Signup = ({ closeModal }) => {
             />
           )}
         </div>
-        {!loader ? (
           <button
             type="submit"
             className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
@@ -260,26 +248,7 @@ const Signup = ({ closeModal }) => {
           >
             Sign Up
           </button>
-        ) : (
-          <div
-            className="mt-5 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
-          >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
-        )}
       </form>
-      <h3 className="mt-[-20px]">
-        Already registered?{" "}
-        <span
-          className="text-slate-400 hover:text-slate-500 hover:underline"
-          onClick={closeModal}
-        >
-          Sign in here.
-        </span>
-      </h3>
     </div>
   );
 };

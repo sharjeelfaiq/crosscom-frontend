@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Modal } from "antd";
 import logo from "../assets/images/logo.png";
-import Modal from "react-modal";
 import Signup from "../pages/Signup";
 
 const Header = () => {
   const [user, setUser] = useState(null);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   /* eslint-disable-next-line react-hooks/exhaustive-deps */
@@ -21,12 +20,16 @@ const Header = () => {
     navigate("/signin");
   };
 
-  const openModal = () => {
-    setIsOpen(true);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -48,19 +51,14 @@ const Header = () => {
           ) : (
             <li
               className="w-20 text-white text-center bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 md:px-2 md:py-2.5 focus:outline-none cursor-pointer"
-              onClick={openModal}
+              onClick={showModal}
             >
               Sign Up
             </li>
           )}
         </ul>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Sign up"
-          className="w-96 mx-auto bg-white mt-10"
-        >
-          <Signup closeModal={closeModal} />
+        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <Signup onOk={handleOk} />
         </Modal>
       </nav>
     </header>
