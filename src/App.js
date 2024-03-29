@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import Products from "./pages/Products";
 import UpdateProduct from "./pages/UpdateProduct";
 import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
 
 function Template() {
   return (
@@ -32,10 +31,6 @@ const router = createBrowserRouter([
       {
         path: "/update/:pid",
         element: <UpdateProduct />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
       },
       {
         path: "/signin",

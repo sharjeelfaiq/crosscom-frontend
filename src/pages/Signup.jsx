@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Alert } from "antd";
+import { RiCloseLine } from "react-icons/ri";
 
-const Signup = () => {
+const Signup = ({ closeModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,13 +71,16 @@ const Signup = () => {
       if (name && email && password && confirmPassword) {
         if (emailFormat) {
           if (password === confirmPassword) {
-            let res = await fetch("https://crosscom-backend.onrender.com/register", {
-              method: "post",
-              body: JSON.stringify({ name, email, password }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
+            let res = await fetch(
+              "https://crosscom-backend.onrender.com/register",
+              {
+                method: "post",
+                body: JSON.stringify({ name, email, password }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
 
             res = await res.json();
 
@@ -121,12 +125,12 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-20 mx-20 pt-10 pb-28 relative">
+    <div className="flex flex-col items-center gap-20 relative border-2 py-10 border-slate-500 rounded-xl">
       {passwordUnmatchedNoti && (
         <Alert
           message="Passwords do not match."
           type="error"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -134,7 +138,7 @@ const Signup = () => {
         <Alert
           message="Fill in the required fields!"
           type="warning"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -142,7 +146,7 @@ const Signup = () => {
         <Alert
           message="Enter Correct Email."
           type="error"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
@@ -150,11 +154,12 @@ const Signup = () => {
         <Alert
           message="User Already Exist."
           type="error"
-          className="absolute top-0 right-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
+          className="absolute top-0 left-0 text-right font-medium text-xs md:text-sm lg:text-lg xl:text-lg 2xl:text-lg"
           showIcon
         />
       )}
       <h1 className="text-4xl text-slate-800 font-bold">Register</h1>
+      <RiCloseLine onClick={() => closeModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
       <form className="flex flex-col items-center  gap-4">
         <input
           type="text"
@@ -266,12 +271,12 @@ const Signup = () => {
       </form>
       <h3 className="mt-[-20px]">
         Already registered?{" "}
-        <Link
-          to="/signin"
+        <span
           className="text-slate-400 hover:text-slate-500 hover:underline"
+          onClick={closeModal}
         >
           Sign in here.
-        </Link>
+        </span>
       </h3>
     </div>
   );

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { Alert } from "antd";
 
-const AddProduct = ({closeAddModal}) => {
+const AddProduct = ({closeModal}) => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productCategory, setProductCategory] = useState("");
@@ -95,7 +95,7 @@ const AddProduct = ({closeAddModal}) => {
         />
       )}
       <h1 className="text-4xl text-slate-800 font-bold">Add Product</h1>
-      <RiCloseLine onClick={() => closeAddModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
+      <RiCloseLine onClick={() => closeModal()} size={25} className="absolute right-3 top-3 cursor-pointer" />
       <form className="flex flex-col items-center gap-4">
         <input
           type="text"

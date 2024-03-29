@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Alert } from "antd";
+import Modal from "react-modal";
+import Signup from "./Signup";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +13,7 @@ const Signin = () => {
   const [typePassword, setTypePassword] = useState("password");
   const [fillFieldsNoti, setFillFieldsNoti] = useState(false);
   const [noUserFoundNoti, setNoUserFoundNoti] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const navigate = useNavigate();
@@ -22,6 +25,14 @@ const Signin = () => {
       console.error(error);
     }
   });
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const handleChange = (inputName, e) => {
     try {
@@ -169,13 +180,21 @@ const Signin = () => {
       </form>
       <h3 className="mt-[-20px]">
         Don't have an account?{" "}
-        <Link
-          to="/signup"
+        <span
           className="text-slate-400 hover:text-slate-500  hover:underline"
+          onClick={openModal}
         >
           Register here.
-        </Link>
+        </span>
       </h3>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Sign up"
+        className="w-96 mx-auto bg-white mt-10"
+      >
+        <Signup closeModal={closeModal} />
+      </Modal>
     </div>
   );
 };

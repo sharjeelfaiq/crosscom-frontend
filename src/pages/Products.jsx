@@ -152,11 +152,11 @@ const Products = () => {
     }
   };
 
-  const openAddModal = () => {
+  const openModal = () => {
     setIsOpen(true);
   };
 
-  const closeAddModal = () => {
+  const closeModal = () => {
     setIsOpen(false);
   };
 
@@ -205,16 +205,16 @@ const Products = () => {
           <IoMdAddCircleOutline
             title="Add product"
             size={20}
-            onClick={openAddModal}
+            onClick={openModal}
             className="cursor-pointer"
           />
           <Modal
             isOpen={modalIsOpen}
-            onRequestClose={closeAddModal}
+            onRequestClose={closeModal}
             contentLabel="Add Product"
-            className="w-96 mx-auto bg-white my-20 relative"
+            className="w-96 mx-auto bg-white mt-10"
           >
-            <AddProduct closeAddModal={closeAddModal} />
+            <AddProduct closeModal={closeModal} />
           </Modal>
         </div>
       </div>
