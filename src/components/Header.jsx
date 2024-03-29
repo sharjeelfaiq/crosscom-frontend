@@ -45,7 +45,7 @@ const Header = () => {
                 className="w-20 text-center text-white bg-slate-700 hover:bg-slate-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2 md:px-2 md:py-2.5 focus:outline-none cursor-pointer"
                 onClick={logout}
               >
-                Logout
+                Log out
               </li>
             </Link>
           ) : (
