@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Alert } from "antd";
+import { token } from "../../components/productToken";
 
 import apis from "../../components/APIs";
 
@@ -39,7 +40,9 @@ const UpdateProduct = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getProducts = async () => {
     try {
-      const res = await fetch(getProductsApi);
+      const res = await fetch(getProductsApi, {
+        headers: { authorization: token },
+      });
       let data = await res.json();
       /* eslint-disable-next-line array-callback-return */
       data = data.find((product) => {
@@ -95,6 +98,7 @@ const UpdateProduct = () => {
             productCompany,
           }),
           headers: {
+            authorization: token,
             "Content-Type": "application/json",
           },
         });

@@ -7,12 +7,12 @@ import { Alert, Modal } from "antd";
 
 import AddProduct from "../AddProduct/AddProduct";
 import Search from "../../components/Search/Search";
+import { token } from "../../components/productToken";
 
 import apis from "../../components/APIs";
 
-const { getProductsApi, deleteProductApi, deleteAllProductsApi, searchApi } = apis;
-
-
+const { getProductsApi, deleteProductApi, deleteAllProductsApi, searchApi } =
+  apis;
 
 const Products = () => {
   const [user, setUser] = useState(null);
@@ -46,9 +46,11 @@ const Products = () => {
     try {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
-          let res = await fetch(
-            `${searchApi}/${searchKey}`
-          );
+          let res = await fetch(`${searchApi}/${searchKey}`, {
+            headers: {
+              authorization: token,
+            },
+          });
           res = await res.json();
 
           let userData = localStorage.getItem("user");
@@ -75,16 +77,11 @@ const Products = () => {
 
   const getProducts = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
-
-      const res = await fetch(
-        getProductsApi,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
+      const res = await fetch(getProductsApi, {
+        headers: {
+          authorization: token,
+        },
+      });
 
       const data = await res.json();
 
@@ -108,12 +105,12 @@ const Products = () => {
 
   const handleDeleteProduct = async (pid) => {
     try {
-      let res = await fetch(
-        `${deleteProductApi}/${pid}`,
-        {
-          method: "delete",
-        }
-      );
+      let res = await fetch(`${deleteProductApi}/${pid}`, {
+        headers: {
+          authorization: token,
+        },
+        method: "delete",
+      });
       res = await res.json();
       if (res) {
         setProductDeletedNoti(true);
@@ -129,12 +126,12 @@ const Products = () => {
 
   const handleDeleteAll = async (uid) => {
     try {
-      let res = await fetch(
-        `${deleteAllProductsApi}/${uid}`,
-        {
-          method: "delete",
-        }
-      );
+      let res = await fetch(`${deleteAllProductsApi}/${uid}`, {
+        headers: {
+          authorization: token,
+        },
+        method: "delete",
+      });
       res = await res.json();
       setProducts([]);
       if (res) {

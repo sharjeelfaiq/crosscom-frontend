@@ -1,11 +1,14 @@
-const signUpApi = "https://crosscom-backend.onrender.com/register";
-const signInApi = "https://crosscom-backend.onrender.com/signin";
-const addProductApi = "https://crosscom-backend.onrender.com/add-product";
-const getProductsApi = "https://crosscom-backend.onrender.com/get-products";
-const updateProductsApi = "https://crosscom-backend.onrender.com/update-product";
-const deleteProductApi = "https://crosscom-backend.onrender.com/delete-product";
-const deleteAllProductsApi = "https://crosscom-backend.onrender.com/delete-all-products";
-const searchApi = "https://crosscom-backend.onrender.com/search";
+// Online Route: https://crosscom-backend.onrender.com
+// Offline Route: http://localhost:8080
+
+const signUpApi = "http://localhost:8080/register";
+const signInApi = "http://localhost:8080/signin";
+const addProductApi = "http://localhost:8080/add-product";
+const getProductsApi = "http://localhost:8080/get-products";
+const updateProductsApi = "http://localhost:8080/update-product";
+const deleteProductApi = "http://localhost:8080/delete-product";
+const deleteAllProductsApi = "http://localhost:8080/delete-all-products";
+const searchApi = "http://localhost:8080/search";
 
 const apis = {signUpApi, signInApi, addProductApi, getProductsApi, updateProductsApi, deleteProductApi, deleteAllProductsApi, searchApi}
 

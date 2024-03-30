@@ -4,6 +4,8 @@ import { Alert } from "antd";
 
 import apis from "../../components/APIs";
 
+import { token } from "../../components/productToken"
+
 const { addProductApi } = apis;
 
 const AddProduct = ({ onOk }) => {
@@ -42,7 +44,6 @@ const AddProduct = ({ onOk }) => {
 
     try {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
-      const token = JSON.parse(localStorage.getItem("token"));
 
       if (productName && productPrice && productCategory && productCompany) {
         await fetch(addProductApi, {
