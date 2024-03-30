@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Modal } from "antd";
-import logo from "../assets/images/logo.png";
-import Signup from "../pages/Signup";
+import logo from "../../assets/images/logo.png";
+import Signup from "../../pages/Signup/Signup";
 
 const Header = () => {
   const [user, setUser] = useState(null);

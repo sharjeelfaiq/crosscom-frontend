@@ -5,8 +5,14 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 import { Alert, Modal } from "antd";
 
-import AddProduct from "./AddProduct";
-import Search from "../components/Search";
+import AddProduct from "../AddProduct/AddProduct";
+import Search from "../../components/Search/Search";
+
+import apis from "../../components/APIs";
+
+const { getProductsApi, deleteProductApi, deleteAllProductsApi, searchApi } = apis;
+
+
 
 const Products = () => {
   const [user, setUser] = useState(null);
@@ -41,7 +47,7 @@ const Products = () => {
       if (searchKey.length > 0 && /^\s+$/.test(searchKey) !== true) {
         const searchData = async () => {
           let res = await fetch(
-            `https://crosscom-backend.onrender.com/search/${searchKey}`
+            `${searchApi}/${searchKey}`
           );
           res = await res.json();
 
@@ -72,7 +78,7 @@ const Products = () => {
       const token = JSON.parse(localStorage.getItem("token"));
 
       const res = await fetch(
-        "https://crosscom-backend.onrender.com/get-products",
+        getProductsApi,
         {
           headers: {
             authorization: token,
@@ -103,7 +109,7 @@ const Products = () => {
   const handleDeleteProduct = async (pid) => {
     try {
       let res = await fetch(
-        `https://crosscom-backend.onrender.com/delete-product/${pid}`,
+        `${deleteProductApi}/${pid}`,
         {
           method: "delete",
         }
@@ -124,7 +130,7 @@ const Products = () => {
   const handleDeleteAll = async (uid) => {
     try {
       let res = await fetch(
-        `https://crosscom-backend.onrender.com/delete-all-products/${uid}`,
+        `${deleteAllProductsApi}/${uid}`,
         {
           method: "delete",
         }

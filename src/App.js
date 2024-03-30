@@ -1,11 +1,11 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
-import Products from "./pages/Products";
-import UpdateProduct from "./pages/UpdateProduct";
-import Signin from "./pages/Signin";
+import Products from "./pages/Products/Products";
+import UpdateProduct from "./pages/UpdateProduct//UpdateProduct";
+import Signin from "./pages/Signin/Signin";
 
 function Template() {
   return (

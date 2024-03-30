@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
 import { Alert } from "antd";
+
+import apis from "../../components/APIs";
+
+const { getProductsApi, updateProductsApi } = apis;
 
 const UpdateProduct = () => {
   const [productName, setProductName] = useState("");
@@ -29,14 +32,14 @@ const UpdateProduct = () => {
     } catch (error) {
       console.error("Error in UpdateProduct.jsx; 2nd useEffect() hook", error);
     }
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getProducts = async () => {
     try {
-      const res = await fetch("https://crosscom-backend.onrender.com/get-products");
+      const res = await fetch(getProductsApi);
       let data = await res.json();
       /* eslint-disable-next-line array-callback-return */
       data = data.find((product) => {
@@ -83,7 +86,7 @@ const UpdateProduct = () => {
 
     try {
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch(`https://crosscom-backend.onrender.com/update-product/${params.pid}`, {
+        await fetch(`${updateProductsApi}/${params.pid}`, {
           method: "put",
           body: JSON.stringify({
             productName,

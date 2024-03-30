@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Alert, Modal } from "antd";
-import Signup from "./Signup";
+import Signup from "../Signup/Signup";
+
+import apis from "../../components/APIs";
+
+const { signInApi } = apis;
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -46,7 +50,7 @@ const Signin = () => {
 
     try {
       if (email && password) {
-        let res = await fetch("https://crosscom-backend.onrender.com/signin", {
+        let res = await fetch(signInApi, {
           method: "post",
           body: JSON.stringify({ email, password }),
           headers: {

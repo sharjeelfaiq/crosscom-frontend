@@ -5,6 +5,11 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { Alert } from "antd";
 
+import apis from "../../components/APIs";
+
+const { signUpApi } = apis;
+
+
 const Signup = ({onOk}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -70,7 +75,7 @@ const Signup = ({onOk}) => {
         if (emailFormat) {
           if (password === confirmPassword) {
             let res = await fetch(
-              "https://crosscom-backend.onrender.com/register",
+              signUpApi,
               {
                 method: "post",
                 body: JSON.stringify({ name, email, password }),

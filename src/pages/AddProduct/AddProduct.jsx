@@ -2,6 +2,10 @@ import { useState } from "react";
 
 import { Alert } from "antd";
 
+import apis from "../../components/APIs";
+
+const { addProductApi } = apis;
+
 const AddProduct = ({ onOk }) => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
@@ -41,7 +45,7 @@ const AddProduct = ({ onOk }) => {
       const token = JSON.parse(localStorage.getItem("token"));
 
       if (productName && productPrice && productCategory && productCompany) {
-        await fetch("https://crosscom-backend.onrender.com/add-product", {
+        await fetch(addProductApi, {
           method: "post",
           body: JSON.stringify({
             userId,
