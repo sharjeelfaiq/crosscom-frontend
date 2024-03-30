@@ -1,14 +1,15 @@
-// Online Route: https://crosscom-backend.onrender.com
-// Offline Route: http://localhost:8080
+/* eslint-disable no-unused-vars */
+const render = "https://crosscom-backend.onrender.com";
+const local = "http://localhost:8080";
 
-const signUpApi = "http://localhost:8080/register";
-const signInApi = "http://localhost:8080/signin";
-const addProductApi = "http://localhost:8080/add-product";
-const getProductsApi = "http://localhost:8080/get-products";
-const updateProductsApi = "http://localhost:8080/update-product";
-const deleteProductApi = "http://localhost:8080/delete-product";
-const deleteAllProductsApi = "http://localhost:8080/delete-all-products";
-const searchApi = "http://localhost:8080/search";
+const signUpApi = `${render}/register`;
+const signInApi = `${render}/signin`;
+const addProductApi = `${render}/add-product`;
+const getProductsApi = `${render}/get-products`;
+const updateProductsApi = `${render}/update-product`;
+const deleteProductApi = `${render}/delete-product`;
+const deleteAllProductsApi = `${render}/delete-all-products`;
+const searchApi = `${render}/search`;
 
 const apis = {signUpApi, signInApi, addProductApi, getProductsApi, updateProductsApi, deleteProductApi, deleteAllProductsApi, searchApi}
 
