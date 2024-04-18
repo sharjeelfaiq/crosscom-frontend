@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const render = "https://crosscom-backend.onrender.com";
-const local = "http://localhost:8080";
+const render = process.env.REACT_APP_RENDER;
+const local = process.env.REACT_APP_LOCAL;
 
 const signUpApi = `${render}/register`;
 const signInApi = `${render}/signin`;
@@ -11,6 +11,15 @@ const deleteProductApi = `${render}/delete-product`;
 const deleteAllProductsApi = `${render}/delete-all-products`;
 const searchApi = `${render}/search`;
 
-const apis = {signUpApi, signInApi, addProductApi, getProductsApi, updateProductsApi, deleteProductApi, deleteAllProductsApi, searchApi}
+const apis = {
+  signUpApi,
+  signInApi,
+  addProductApi,
+  getProductsApi,
+  updateProductsApi,
+  deleteProductApi,
+  deleteAllProductsApi,
+  searchApi,
+};
 
 export default apis;
