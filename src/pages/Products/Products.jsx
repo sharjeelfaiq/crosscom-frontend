@@ -26,9 +26,8 @@ const Products = () => {
 
   useEffect(() => {
     try {
-      const user = localStorage.getItem("user");
-      !user && navigate("/signin");
-      setUser(JSON.parse(user).name);
+      const user = JSON.parse(localStorage.getItem("user"));
+      user ? setUser(user.name) : navigate("/signin");
     } catch (error) {
       console.error("Error in Products.jsx; 1st useEffect() hook", error);
     }
@@ -99,7 +98,7 @@ const Products = () => {
         setProducts(productsArr);
       }
     } catch (error) {
-      console.error("Error in Product.jsx; getProducts function.", error);
+      console.error(error);
     }
   };
 
