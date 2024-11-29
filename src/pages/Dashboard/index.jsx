@@ -101,7 +101,7 @@ const Dashboard = () => {
 
                 <div className="text-center flex flex-col items-center justify-start gap-3">
                     <h1 className="text-2xl text-slate-800 font-medium">
-                        Hi, {user?.split(" ")[0]}.{" "}
+                        Hi, {user}.{" "}
                         {products.length > 0
                             ? "This is your product list."
                             : "Add products to your list."}
