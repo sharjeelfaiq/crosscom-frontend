@@ -22,7 +22,7 @@ const Dashboard = () => {
             const response = await dataProvider.get_products();
             const { data } = response;
 
-            if (data && user) {
+            if (data) {
                 const userProducts = data.filter(
                     (product) => product.userId === user._id
                 );
