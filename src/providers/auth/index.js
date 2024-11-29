@@ -50,7 +50,7 @@ const authProvider = {
 
             const { user } = data;
 
-            localStorage.setItem("user", user.name);
+            localStorage.setItem("user", JSON.stringify({ name: user.name, id: user.id }));
             localStorage.setItem("token", user.token);
 
             return {

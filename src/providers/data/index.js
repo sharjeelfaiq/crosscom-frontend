@@ -69,7 +69,7 @@ const dataProvider = {
     },
     delete_all_products: async (userId) => {
         try {
-            const response = await axios.post(`${baseURL}/product/delete-all-product/${userId}`)
+            const response = await axios.delete(`${baseURL}/product/delete-all-products/${userId}`)
             const { data } = response
 
             return {

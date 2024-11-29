@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context";
@@ -16,16 +15,6 @@ const Auth = () => {
     const [isRegister, setIsRegister] = useState(false);
 
     const { register, login } = useAuth();
-
-    const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const user = localStorage.getItem("user");
-
-    //     if (user) {
-    //         navigate("/");
-    //     }
-    // }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,7 +43,6 @@ const Auth = () => {
 
             if (response.success) {
                 toast.success(response.message);
-                navigate("/");
             } else {
                 toast.error(response.message);
             }

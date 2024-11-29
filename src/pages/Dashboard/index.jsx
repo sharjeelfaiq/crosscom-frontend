@@ -10,7 +10,8 @@ import AddProduct from "../AddProduct";
 import Search from "../../components/Search/Search";
 import dataProvider from "../../providers/data";
 
-const savedUser = localStorage.getItem("user");
+const savedUser = JSON.parse(localStorage.getItem("user"));
+
 const Dashboard = () => {
     const [user] = useState(savedUser);
     const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ const Dashboard = () => {
 
             if (data) {
                 const userProducts = data.filter(
-                    (product) => product.userId === user._id
+                    (product) => product.userId === user.id
                 );
                 setProducts(userProducts);
             }
@@ -51,7 +52,7 @@ const Dashboard = () => {
             const products = await response.json();
 
             const filteredProducts = products.filter(
-                (product) => product.userId === user?._id
+                (product) => product.userId === user?.id
             );
             setProducts(filteredProducts);
         } catch (error) {
@@ -79,7 +80,7 @@ const Dashboard = () => {
 
     const handleDeleteAll = async () => {
         try {
-            await dataProvider.delete_all_products(user._id);
+            await dataProvider.delete_all_products(user.id);
             setProducts([]);
         } catch (error) {
             console.error("Error deleting all products:", error);
@@ -101,7 +102,7 @@ const Dashboard = () => {
 
                 <div className="text-center flex flex-col items-center justify-start gap-3">
                     <h1 className="text-2xl text-slate-800 font-medium">
-                        Hi, {user}.{" "}
+                        Hi, {savedUser.name}.{" "}
                         {products.length > 0
                             ? "This is your product list."
                             : "Add products to your list."}
