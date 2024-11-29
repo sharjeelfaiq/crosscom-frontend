@@ -11,14 +11,23 @@ export default function App() {
   const { isAuthenticated } = useAuth();
   function Template() {
     return (
-      <>
-        <Header />
-        <Outlet />
-        <Footer />
-      </>
-    )
-  }
+      <div className="flex flex-col min-h-screen">
+        <header>
+          <Header />
+        </header>
 
+        {/* Main body takes remaining space */}
+        <main className="flex-grow">
+          <Outlet />
+        </main>
+
+        {/* Footer at the bottom */}
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    );
+  }
   return (
     <Router>
       <Routes>
