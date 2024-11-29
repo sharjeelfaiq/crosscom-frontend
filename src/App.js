@@ -1,47 +1,37 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import PrivateRoutes from './routes/PrivateRoutes';
+import PublicRoutes from './routes/PublicRoutes';
+import Dashboard from "./pages/Dashboard";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Auth from "./pages/Auth";
+import { useAuth } from './context';
 
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-
-import Products from "./pages/Products/Products";
-import UpdateProduct from "./pages/UpdateProduct//UpdateProduct";
-import Signin from "./pages/Signin/Signin";
-
-function Template() {
-  return (
-    <>
-      <Header />
-      <div style={{ height: "calc(100dvh - 10rem)" }}>
+export default function App() {
+  const { isAuthenticated } = useAuth();
+  function Template() {
+    return (
+      <>
+        <Header />
         <Outlet />
-      </div>
-      <Footer />
-    </>
+        <Footer />
+      </>
+    )
+  }
+
+  return (
+    <Router>
+      <Routes>
+        <Route element={<Template />}>
+          <Route element={<PrivateRoutes isAuthenticated={isAuthenticated} />}>
+            <Route path='/' element={<Dashboard />} />
+          </Route>
+          <Route element={<PublicRoutes isAuthenticated={isAuthenticated} />}>
+            <Route path='/auth' element={<Auth />} />
+          </Route>
+          <Route path='*' element={<h1>Not Found</h1>} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Template />,
-    children: [
-      {
-        path: "/",
-        element: <Products />,
-      },
-      {
-        path: "/update/:pid",
-        element: <UpdateProduct />,
-      },
-      {
-        path: "/signin",
-        element: <Signin />,
-      },
-    ],
-  },
-]);
-
-const App = () => {
-  return <RouterProvider router={router} />;
-};
-
-export default App;

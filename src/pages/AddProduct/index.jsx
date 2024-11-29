@@ -2,12 +2,6 @@ import { useState } from "react";
 
 import { Alert } from "antd";
 
-import apis from "../../components/APIs";
-
-import { token } from "../../components/productToken"
-
-const { addProductApi } = apis;
-
 const AddProduct = ({ onOk }) => {
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
@@ -39,44 +33,44 @@ const AddProduct = ({ onOk }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const userId = JSON.parse(localStorage.getItem("user"))._id;
+  //   try {
+  //     const userId = JSON.parse(localStorage.getItem("user"))._id;
 
-      if (productName && productPrice && productCategory && productCompany) {
-        await fetch(addProductApi, {
-          method: "post",
-          body: JSON.stringify({
-            userId,
-            productName,
-            productPrice,
-            productCategory,
-            productCompany,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            authorization: token,
-          },
-        });
+  //     if (productName && productPrice && productCategory && productCompany) {
+  //       await fetch(addProductApi, {
+  //         method: "post",
+  //         body: JSON.stringify({
+  //           userId,
+  //           productName,
+  //           productPrice,
+  //           productCategory,
+  //           productCompany,
+  //         }),
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           authorization: token,
+  //         },
+  //       });
 
-        setProductName("");
-        setProductPrice("");
-        setProductCategory("");
-        setProductCompany("");
+  //       setProductName("");
+  //       setProductPrice("");
+  //       setProductCategory("");
+  //       setProductCompany("");
 
-        onOk();
+  //       onOk();
 
-        setFillFieldsNoti(false);
-      } else {
-        setFillFieldsNoti(true);
-        setTimeout(() => setFillFieldsNoti(false), 3000);
-      }
-    } catch (error) {
-      console.error("Error in AddProduct.jsx; handleSubmit() function", error);
-    }
-  };
+  //       setFillFieldsNoti(false);
+  //     } else {
+  //       setFillFieldsNoti(true);
+  //       setTimeout(() => setFillFieldsNoti(false), 3000);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error in AddProduct.jsx; handleSubmit() function", error);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col items-center gap-20 relative py-10rounded-xl">
@@ -135,7 +129,7 @@ const AddProduct = ({ onOk }) => {
         <button
           type="submit"
           className="mt-5 outline-none bg-slate-500 text-white w-24 px-1 py-1.5 font-medium rounded-full active:bg-slate-400"
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
         >
           Add
         </button>

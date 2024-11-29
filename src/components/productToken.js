@@ -1,1 +1,0 @@
-export const token = `bearer ${JSON.parse(localStorage.getItem("token"))}`;
